@@ -11,3 +11,23 @@
 ## betdice.py
 
 这个是按照某种策略自动来玩dice的
+
+## createAccount.py
+
+自动创建账号
+
+## getdata.py
+
+获取某个合约的所有数据
+
+## getbalance.py
+
+批量获取账号的余额
+
+## shishicai.py
+
+时时彩羊毛(邀请送0.2 EOS)
+
+## transferBalance.py
+
+批量转账...
