@@ -1,6 +1,11 @@
 ## 如何运行
 
-`pip install -r requirements.txt`
+`pip install pipenv`
+
+使用 `pipenv install`来安装虚拟环境
+
+`pipenv shell` 进入虚拟环境
+
 
 ## draw.py
 
@@ -31,3 +36,11 @@
 ## transferBalance.py
 
 批量转账...
+
+## airdrop.py
+
+领糖果...
+
+1. DICE
+2. SEVEN **需要自己出内存**
+3. CHIPS
