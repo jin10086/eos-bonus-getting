@@ -4,7 +4,7 @@ import logging
 def loggingSetting(name):
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
-    fh = logging.FileHandler("{}.log".format(name))
+    fh = logging.FileHandler("log/{}.log".format(name))
     fh.setLevel(logging.DEBUG)
 
     ch = logging.StreamHandler()
