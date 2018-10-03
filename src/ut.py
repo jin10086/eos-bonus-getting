@@ -17,6 +17,11 @@ def unlock(password):
     a = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
+def runcleos(cmd):
+    a = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return a.stdout
+
+
 def pushaction(contract, action, data, f):
     """
     contract :要玩的合约地址
