@@ -1,36 +1,17 @@
 import json
-import subprocess
+from time import sleep
 
 import requests
-from log import loggingSetting
-from time import sleep
+
 import arrow
+from log import loggingSetting
+from ut import pushaction, unlock
 
 s = requests.Session()
 
 rules = [10000, 30000, 90000]
 
 logger = loggingSetting("betdice")
-
-
-def sendTx(account, action, data, f):
-    cmd = [
-        # "docker",
-        # "exec",
-        # "hungry_cori",
-        "cleos",
-        "-u",
-        "http://api.eosbeijing.one",
-        "push",
-        "action",
-        account,
-        action,
-        json.dumps(data),
-        "-p",
-        f,
-    ]
-    a = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    return a.stdout
 
 
 def play(myaccount, password):
@@ -52,7 +33,7 @@ def play(myaccount, password):
                 logger.info("投入的金额为:{}".format(_amount))
                 data = [myaccount, "betdiceadmin", amout, memo]
 
-                t = sendTx(account, action, data, myaccount)
+                t = pushaction(account, action, data, myaccount)
                 send_t = arrow.utcnow()
                 sleep(1)
                 if b"Locked" in t:
@@ -104,21 +85,6 @@ def getData(account, contractAccount, t):
                     return False
     sleep(2)
     return getData(account, contractAccount, t)
-
-
-def unlock(password):
-    cmd = [
-        # "docker",
-        # "exec",
-        # "hungry_cori",
-        "cleos",
-        "wallet",
-        "unlock",
-        "--password",
-        password,
-    ]
-    a = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print(a.stderr)
 
 
 if __name__ == "__main__":
