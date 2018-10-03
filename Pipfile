@@ -1,0 +1,14 @@
+[[source]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+arrow = "*"
+pyeos = {git = "https://github.com/eosnewyork/eospy"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
