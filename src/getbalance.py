@@ -1,6 +1,6 @@
 import json
 import requests
-from draw import getAccounts
+from ut import getAccounts
 
 
 def getblance():
