@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3f4534aa9e2d574fa24f96384504aad55d257eb29ce92c5139625db79cb63117"
+            "sha256": "7c5abc357d334c70be88a7c34821dae396e49ad0c0ae352bbb31c6efa5dd9be5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -46,7 +46,7 @@
         },
         "pyeos": {
             "git": "https://github.com/eosnewyork/eospy",
-            "ref": "e2895a455c11c46f0695cfb0fb60ab08d667d197"
+            "ref": "5dd286021e5d68b5fd13c5c3234fdd6fe406775b"
         },
         "python-dateutil": {
             "hashes": [
@@ -54,6 +54,14 @@
                 "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
             ],
             "version": "==2.7.3"
+        },
+        "redis": {
+            "hashes": [
+                "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
+                "sha256:a22ca993cea2962dbb588f9f30d0015ac4afcc45bee27d3978c0dbe9e97c6c0f"
+            ],
+            "index": "pypi",
+            "version": "==2.10.6"
         },
         "requests": {
             "hashes": [
