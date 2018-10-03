@@ -1,5 +1,7 @@
-import requests
+import json
+
 import redis
+import requests
 
 
 class Data:
@@ -24,12 +26,13 @@ class Data:
             self.url.format("history/get_actions"),
             data={"pos": pos, "offset": offset, "account_name": self.account_name},
         )
+        if data.get("actions"):
+            return data
+        return {"actions": []}
 
-        return data
-
-    def getdata(self, lastPos=0, offset=500):
+    def getdata(self, lastPos=0, offset=100):
         while True:
-            _data = self.getAction(pos=lastPos)["actions"]
+            _data = self.getAction(pos=lastPos, offset=offset)["actions"]
             if not _data:
                 return
             self.data.extend(_data)
