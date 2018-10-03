@@ -2,6 +2,7 @@ import os
 import json
 from log import loggingSetting
 from ut import pushaction, unlock
+import pickle
 
 logger = loggingSetting("draw")
 
@@ -19,6 +20,7 @@ def main(password):
     unlock(password)
     for i in x:
         print(pushaction("betdicelucky", "draw", [i], i))
+    # print(pushaction("betdicetoken", "signup", [i, "1000.0000 DICE"], i)) # 1000dice
 
 
 if __name__ == "__main__":
