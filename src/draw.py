@@ -10,7 +10,7 @@ logger = loggingSetting("draw")
 def main(password):
     x = getAccounts()
     unlock(password)
-    for i in x[:1]:
+    for i in x:
         print(pushaction("betdicelucky", "draw", [i], i))
 
 
