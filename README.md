@@ -6,6 +6,18 @@
 
 `pipenv shell` 进入虚拟环境
 
+## 依赖
+
+### python
+
+python的话在 [conda](https://conda.io/miniconda.html)下载你需要的版本
+
+### cleos 
+cleos 的话，如果是mac ,ubuntu 用户则可以按照[官网教程](https://developers.eos.io/eosio-nodeos/docs/getting-the-code)来安装好
+
+如果其他系统的用户，则可以使用docker [eosio-docker](https://developers.eos.io/eosio-nodeos/docs/docker-quickstart)
+
+
 ## 代码
 
 ### draw.py
