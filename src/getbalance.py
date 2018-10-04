@@ -19,4 +19,6 @@ def getblance():
 
 
 if __name__ == "__main__":
-    getblance()
+    x = getblance()
+    print(sorted(x.items(), key=lambda k: k[1]))
+    print("余额一共为:{}".format(sum([v for k, v in x.items()])))
