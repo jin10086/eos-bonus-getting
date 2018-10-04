@@ -18,4 +18,5 @@ def getblance():
     return xxx
 
 
-getblance()
+if __name__ == "__main__":
+    getblance()

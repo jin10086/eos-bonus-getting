@@ -25,4 +25,5 @@ def run(ref):
             logger.info("原因为:{}".format(t))
 
 
-run("gy2dgmztgqge")
+if __name__ == "__main__":
+    run("gy2dgmztgqge")
