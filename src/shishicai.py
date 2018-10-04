@@ -8,9 +8,9 @@ logger = loggingSetting("shishicai")
 def run(ref):
     """https://lottery.eosplay.co/link"""
     accounts = getAccounts()
-    for i in range(5, len(accounts) - 5):
+    for i in range(0, len(accounts)):
         account = accounts[i]
-        if i % 2 == 0:
+        if i % 2 == 0:  # lottery:o,lottery:e 一个是猜单，一个是猜双，这段代码的目的是 55开，这样可以保证2次肯定有一次赢.
             memo = "lottery:o@{}".format(ref)
         else:
             memo = "lottery:e@{}".format(ref)
@@ -23,6 +23,8 @@ def run(ref):
         if b"transaction" not in t:
             logger.info("转账失败:{}".format(account))
             logger.info("原因为:{}".format(t))
+        else:
+            print("{} 操作成".format(account))
 
 
 if __name__ == "__main__":
