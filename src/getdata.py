@@ -52,7 +52,7 @@ class Data:
     def pickleData(self, kname, data):
         self.r.set(kname, json.dumps(data))
 
-    def run(self, dbclean=False):
+    def run(self, dbclean=False, offset=100):
         kname = "{}_alldata".format(self.account_name)
         if dbclean:
             self.r.delete(kname)
@@ -60,10 +60,10 @@ class Data:
         if d:
             data = json.loads(d)
             self.data = data["data"]
-            self.getdata(lastPos=data["lastPos"])
+            self.getdata(lastPos=data["lastPos"], offset=offset)
         else:
             self.data = []
-            self.getdata()
+            self.getdata(offset=offset)
 
 
 if __name__ == "__main__":
