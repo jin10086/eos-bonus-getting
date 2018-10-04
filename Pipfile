@@ -10,6 +10,7 @@ pyeos = {git = "https://github.com/eosnewyork/eospy"}
 redis = "*"
 
 [dev-packages]
+ipython = "*"
 
 [requires]
 python_version = "3.6"
