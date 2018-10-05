@@ -32,6 +32,31 @@ def runcleos(cmd):
     return a.stdout
 
 
+def delegatebw(f, t, net, cpu):
+    """
+    抵押 cpu ，内存
+    f>t,谁抵押给谁，如果是抵押给自己的话，则, f,t都是自己
+    """
+
+    cmd = [
+        # "docker",
+        # "exec",
+        # "hungry_cori",
+        "cleos",
+        "-u",
+        "http://api.eosbeijing.one",
+        "system",
+        "delegatebw",
+        f,
+        t,
+        "%.4f EOS" % net,
+        "%.4f EOS" % cpu,
+        "-p",
+        f,
+    ]
+    return runcleos(cmd)
+
+
 def pushaction(contract, action, data, f):
     """
     contract :要玩的合约地址
@@ -54,5 +79,4 @@ def pushaction(contract, action, data, f):
         "-p",
         f,
     ]
-    a = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    return a.stdout
+    return runcleos(cmd)
