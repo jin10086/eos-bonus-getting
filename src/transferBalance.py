@@ -1,11 +1,9 @@
 import pickle
 
 from log import loggingSetting
-from ut import pushaction
+from ut import pushaction, getAccounts
 
 logger = loggingSetting("transferBalance")
-with open("tmp.pkl", "rb") as f:
-    accounts = pickle.load(f)
 
 
 def transferEos(f, to, n):
@@ -17,7 +15,8 @@ def tranferDice(f, to, n):
 
 
 if __name__ == "__main__":
+    accounts = getAccounts()
     for i in accounts:
         print(i)
-        t = transferEos("gy2dgmztgqge", i)
+        t = tranferDice(i, "gy2dgmztgqge", 1000)
         logger.info(t)
