@@ -5,7 +5,6 @@ from time import sleep
 
 import requests
 
-from log import loggingSetting
 from ut import getAccounts, pushaction, unlock
 
 s = requests.Session()
