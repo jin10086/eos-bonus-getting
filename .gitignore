@@ -142,3 +142,4 @@ pip-selfcheck.json
 # End of https://www.gitignore.io/api/python
 src/config.py
 src/int_run.py
+src/tmp.pkl
