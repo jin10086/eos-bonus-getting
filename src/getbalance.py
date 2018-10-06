@@ -22,3 +22,4 @@ if __name__ == "__main__":
     x = getblance()
     print(sorted(x.items(), key=lambda k: k[1]))
     print("余额一共为:{}".format(sum([v for k, v in x.items()])))
+    print("一共{}个账号".format(len(x.keys())))
