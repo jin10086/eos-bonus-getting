@@ -24,32 +24,17 @@ def main(password):
 
 
 def getdraw(account):
-    b, c = randomN()
+    b, c = randomN(account)
     return pushaction("betdicelucky", "draw", [account, b, c], account)
 
 
-def randomN():
-    # js代码如下。。。
-    """                           for (n = t.sent,
-                                            e = n.last_irreversible_block_num,
-                                            o = 1,
-                                            a = 0; a < 5651; a++)
-                                            o *= e,
-                                            o %= 8633;
-                                        return t.next = 12,
-                                            this.contract_login.draw({
-                                                from: this.$store.state.account.name,
-                                                b: e,
-                                                c: o
-                                            }, {
-                                                authorization: this.$store.state.account.name + "@" + this.$store.state.account.authority
-                                            });"""
-    e = int(getinfo())
-    o = 1
-    for i in range(5651):
-        o *= e
-        o %= 8633
-    return e, o
+def randomN(account):
+    blocknum = getinfo()
+    data = {"name": account, "blocknum": blocknum}
+    z = requests.get("http://localhost:5000/betdice", params=data)
+    d = z.json()
+    b, c = d["b"], d["c"]
+    return b, c
 
 
 def getinfo():
