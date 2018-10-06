@@ -3,7 +3,6 @@ import os
 import pickle
 from time import sleep
 
-import execjs
 import requests
 
 from log import loggingSetting
@@ -11,13 +10,6 @@ from ut import getAccounts, pushaction, unlock
 
 s = requests.Session()
 logger = loggingSetting("draw")
-
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-betdiceFile = os.path.join(current_dir, "betdice.js")
-with open(betdiceFile, "r") as f:
-    jscode = f.read()
-ctx = execjs.compile(jscode)
 
 
 def main(password):
