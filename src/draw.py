@@ -5,14 +5,12 @@ from time import sleep
 
 import requests
 
-from log import loggingSetting
 from ut import getAccounts, pushaction, unlock
 
 s = requests.Session()
-logger = loggingSetting("draw")
 
 
-def main(password):
+def run(password):
     x = getAccounts()
     for i in x:
         t = getdraw(i)
@@ -45,4 +43,4 @@ def getinfo():
 
 if __name__ == "__main__":
     password = "1"
-    main(password)
+    run(password)
