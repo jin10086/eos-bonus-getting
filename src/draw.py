@@ -6,24 +6,14 @@ from time import sleep
 import requests
 
 from ut import getAccounts, pushaction, unlock
+from multiprocessing import Pool
 
 s = requests.Session()
 
 
-def run(password):
-    x = getAccounts()
-    for i in x:
-        t = getdraw(i)
-        if b"wrong identity" in t:
-            sleep(1)
-            print("*" * 60)
-            getdraw(i)
-        print(t)
-
-
 def getdraw(account):
     b, c = randomN(account)
-    return pushaction("betdicelucky", "draw", [account, b, c], account)
+    print(pushaction("betdicelucky", "draw", [account, b, c], account))
 
 
 def randomN(account):
@@ -43,4 +33,8 @@ def getinfo():
 
 if __name__ == "__main__":
     password = "1"
-    run(password)
+    unlock(password)
+    accounts = getAccounts()
+
+    with Pool() as pool:
+        pool.map(getdraw, accounts)
