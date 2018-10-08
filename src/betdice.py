@@ -9,7 +9,7 @@ from ut import pushaction, unlock
 
 s = requests.Session()
 
-rules = [10000, 30000, 90000]
+rules = [10000, 10000, 30000, 90000, 270000]
 
 logger = loggingSetting("betdice")
 
