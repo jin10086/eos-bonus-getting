@@ -6,12 +6,12 @@ from ut import pushaction, getAccounts
 logger = loggingSetting("transferBalance")
 
 
-def transferEos(f, to, n):
-    return pushaction("eosio.token", "transfer", [f, to, "%.4f EOS" % n, ""], f)
+def transferEos(f, to, n, m=""):
+    return pushaction("eosio.token", "transfer", [f, to, "%.4f EOS" % n, m], f)
 
 
-def tranferDice(f, to, n):
-    return pushaction("betdicetoken", "transfer", [f, to, "%.4f DICE" % n, ""], f)
+def tranferDice(f, to, n, m=""):
+    return pushaction("betdicetoken", "transfer", [f, to, "%.4f DICE" % n, m], f)
 
 
 if __name__ == "__main__":
