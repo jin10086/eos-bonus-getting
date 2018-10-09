@@ -1,6 +1,7 @@
 import subprocess
 import json
 import os
+from multiprocessing import Pool
 
 
 def getAccounts():
@@ -80,3 +81,8 @@ def pushaction(contract, action, data, f):
         f,
     ]
     return runcleos(cmd)
+
+
+def runPool(f, accounts):
+    with Pool() as pool:
+        pool.map(f, accounts)
