@@ -5,9 +5,8 @@ from log import loggingSetting
 logger = loggingSetting("shishicai")
 
 
-def run(ref):
+def run(ref, accounts):
     """https://lottery.eosplay.co/link"""
-    accounts = getAccounts()
     for i in range(0, len(accounts)):
         account = accounts[i]
         if i % 2 == 0:  # lottery:o,lottery:e 一个是猜单，一个是猜双，这段代码的目的是 55开，这样可以保证2次肯定有一次赢.
@@ -28,4 +27,4 @@ def run(ref):
 
 
 if __name__ == "__main__":
-    run("gy2dgmztgqge")
+    run("gy2dgmztgqge", accounts=getAccounts())
