@@ -33,6 +33,26 @@ def runcleos(cmd):
     return a.stdout
 
 
+def buyram(f, t, ram):
+    cmd = [
+        # "docker",
+        # "exec",
+        # "hungry_cori",
+        "cleos",
+        "-u",
+        "http://api.eosbeijing.one",
+        "system",
+        "buyram",
+        f,
+        t,
+        ram,
+        "--kbytes",
+        "-p",
+        f,
+    ]
+    return runcleos(cmd)
+
+
 def delegatebw(f, t, net, cpu):
     """
     抵押 cpu ，内存
