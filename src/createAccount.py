@@ -24,7 +24,7 @@ def checkName(name):
         return False
 
 
-def createUser(publicKey, name=None, cpu=0.1, net=0.1, ram=3):
+def createUser(f, publicKey, name=None, cpu=0.1, net=0.1, ram=3):
     if not name:
         name = genrateRandomName()
     # 直到随机到一个没有注册的用户名.
@@ -39,7 +39,7 @@ def createUser(publicKey, name=None, cpu=0.1, net=0.1, ram=3):
         "http://api.eosbeijing.one",
         "system",
         "newaccount",
-        "gy2dgmztgqge",
+        f,
         name,
         publicKey,
         publicKey,
