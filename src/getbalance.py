@@ -18,6 +18,24 @@ def getblance():
     return xxx
 
 
+def getblanceLucky():
+    accounts = getAccounts()
+    s = requests.Session()
+    url = "https://proxy.eosnode.tools/v1/{}"
+    xxx = {}
+    for i in accounts:
+        z1 = s.post(
+            url.format("chain/get_currency_balance"),
+            json={"code": "eoslucktoken", "account": i, "symbol": "LUCKY"},
+        )
+        if z1.json():
+            balance = float(z1.json()[0].split()[0])
+        else:
+            balance = 0
+        xxx[i] = balance
+    return xxx
+
+
 if __name__ == "__main__":
     x = getblance()
     print(sorted(x.items(), key=lambda k: k[1]))
