@@ -45,7 +45,7 @@ def buyram(f, t, ram):
         "buyram",
         f,
         t,
-        ram,
+        f"{ram}",
         "--kbytes",
         "-p",
         f,
