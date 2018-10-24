@@ -1,7 +1,7 @@
 import os
 import json
 from log import loggingSetting
-from ut import pushaction, unlock, getAccounts, runPool
+from ut import pushaction, unlock, getAccounts, runPool, buyram
 
 logger = loggingSetting("airdrop")
 
@@ -31,9 +31,19 @@ if __name__ == "__main__":
     accounts = getAccounts()
 
     def run(i):
-        print(pushaction("poormantoken", "signup", [i, "0.0000 POOR"], i))
-        print(pushaction("trybenetwork", "claim", [i], i))
-        print(pushaction("wizznetwork1", "signup", [i, "0.0000 WIZZ"], i))
+        print(pushaction("grandpacoins", "mine", [i, "4,BTC", "gy2dgmztgqge"], i))
+        print(pushaction("grandpacoins", "mine", [i, "4,ETH", "gy2dgmztgqge"], i))
+        print(pushaction("grandpacoins", "mine", [i, "4,DOGE", "gy2dgmztgqge"], i))
+        # print(pushaction("eosenbpocket", "signup", [i, "1000.0001 ENB", i], i))
+        # t = pushaction("eoscubetoken", "signup", [i, "0.0000 CUBE"], i)
+        # print(t)
 
-    # runPool(run, accounts)
-    run("gy2dgmztgqge")
+        # t = pushaction("eosindiegame", "claim", [i, "100.0000 IGC"], i)
+        # if b"you have already signed up" not in t:
+        #     print(t)
+        # if b"has insufficient ram" in t:
+        #     buyram("gy2dgmztgqge", i, 2)
+        #     print(pushaction("eosindiegame", "claim", ["100.0000 IGC", i], i))
+
+    runPool(run, accounts)
+    # run("gy2dgmztgqge")
