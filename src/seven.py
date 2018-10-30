@@ -1,4 +1,3 @@
-@@ -0,0 +1,60 @@
 import time
 import json
 from websocket import create_connection
