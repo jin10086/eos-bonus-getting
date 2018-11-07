@@ -26,7 +26,7 @@ def run(account):
                         {
                             "id": "q-1-1DMP",
                             "type": "text",
-                            "text": f"{account}",
+                            "text": account,
                             "options": [],
                             "blanks": [],
                         }
