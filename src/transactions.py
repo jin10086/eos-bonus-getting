@@ -23,6 +23,8 @@ def getaction(contract, action, data, f, p=False):
     """
     cmd = [
         "cleos",
+        "-u",
+        "https://api.eosbeijing.one",
         "push",
         "action",
         contract,
