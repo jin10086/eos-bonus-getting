@@ -2,56 +2,36 @@ import json
 import requests
 from ut import getAccounts
 
-
-def getblance(accounts):
-    s = requests.Session()
-    url = "https://proxy.eosnode.tools/v1/{}"
-    xxx = {}
-    for i in accounts:
-        z1 = s.post(
-            url.format("chain/get_currency_balance"),
-            json={"code": "eosio.token", "account": i, "symbol": "EOS"},
-        )
-        balance = float(z1.json()[0].split()[0])
-        xxx[i] = balance
-    return xxx
+s = requests.Session()
+s.headers = {
+    "Authorization": "Bearer eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDkyNzY1ODgsImp0aSI6ImQ2YjllYmNlLTllOTYtNGFkNi1iNDY3LWM4NDAwMjBmMDczMyIsImlhdCI6MTU0NjY4NDU4OCwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJDaVFBNmNieWU0OWVJMHRHTUNnZ0tkUEd4QjRwKzhsMUtNWVZBZVFWR0MxaWkyUkxhWThTTndBL0NMUnQ0eFBhVGVqRitKSkEwY04vQkFmd1JGcnpJcW4vbk1BQWNpQWkzOCtyWlRKajlLM09jK1dwMjVvenAwR21vR2hVazg0PSIsInRpZXIiOiJiZXRhLXYxIiwidiI6MX0.ZGEA5Y6yIilgmMZP-m_Wc_0pYes0ZSpGy4bsJTgl40edsttO68mbEqxad-sqVGjtDZyiRa17yDjKF0f8iIC5Ww"
+}
+url = "https://mainnet.eos.dfuse.io/"
 
 
-def getblanceBase(contract, symbol, accounts):
-    s = requests.Session()
-    url = "https://proxy.eosnode.tools/v1/{}"
-    xxx = {}
-    for i in accounts:
-        z1 = s.post(
-            url.format("chain/get_currency_balance"),
-            json={"code": contract, "account": i, "symbol": symbol},
-        )
-        balance = float(z1.json()[0].split()[0])
-        xxx[i] = balance
-    return xxx
+def getbalanceBase(account, accounts):
+    x = {}
+    for i in range(0, len(accounts), 100):
+        data = {
+            "account": account,
+            "scopes": "|".join(accounts[i : i + 100]),
+            "table": "accounts",
+            "json": "true",
+        }
+        z = s.get(url + "v0/state/tables/scopes", params=data).json()["tables"]
+        for i in z:
+            x[i["scope"]] = float(i["rows"][0]["json"]["balance"].split(" ")[0])
+    return x
 
 
-def getblanceLucky():
-    accounts = getAccounts()
-    s = requests.Session()
-    url = "https://proxy.eosnode.tools/v1/{}"
-    xxx = {}
-    for i in accounts:
-        z1 = s.post(
-            url.format("chain/get_currency_balance"),
-            json={"code": "eoslucktoken", "account": i, "symbol": "LUCKY"},
-        )
-        if z1.json():
-            balance = float(z1.json()[0].split()[0])
-        else:
-            balance = 0
-        xxx[i] = balance
-    return xxx
+def getEOSbalance(accounts):
+    return getbalanceBase("eosio.token", accounts)
 
 
 if __name__ == "__main__":
     accounts = getAccounts()
-    x = getblance(accounts)
+    x = getEOSbalance(accounts)
+
     print(sorted(x.items(), key=lambda k: k[1]))
     print("余额一共为:{}".format(sum([v for k, v in x.items()])))
     print("一共{}个账号".format(len(x.keys())))
