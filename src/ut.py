@@ -2,6 +2,8 @@ import subprocess
 import json
 import os
 from multiprocessing import Pool
+import string
+import random
 
 
 def getAccounts():
@@ -92,6 +94,7 @@ def pushaction(contract, action, data, f):
         "cleos",
         "-u",
         "http://api.eosbeijing.one",
+        # "https://geo.eosasia.one",
         "push",
         "action",
         contract,
@@ -106,3 +109,24 @@ def pushaction(contract, action, data, f):
 def runPool(f, accounts):
     with Pool() as pool:
         pool.map(f, accounts)
+
+
+def gettable(code, scope, table):
+    return json.loads(
+        runcleos(
+            [
+                "cleos",
+                "-u",
+                "http://api.eosbeijing.one",
+                "get",
+                "table",
+                code,
+                scope,
+                table,
+            ]
+        )
+    )
+
+
+def genrateRandomN(k=12):
+    return "".join(random.choices(string.ascii_lowercase, k=k))
