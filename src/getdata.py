@@ -2,11 +2,13 @@ import json
 
 import redis
 import requests
+from pymongo import MongoClient
+import pymongo
 
 
 class Data:
 
-    def __init__(self, account_name, r=None):
+    def __init__(self, account_name):
         self.url = "https://proxy.eosnode.tools/v1/{}"
         # self.url = "https://api-kylin.eosasia.one/v1/{}"
         self.s = requests.Session()
@@ -14,11 +16,7 @@ class Data:
             "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
         }
         self.account_name = account_name
-        if r:
-            self.r = r
-            print("use set redis ")
-        else:
-            self.r = redis.Redis(db=1)
+        self.m = db = MongoClient()["jacks"]
 
     def getAction(self, pos=0, offset=500):
         print("get ", pos)
@@ -35,15 +33,12 @@ class Data:
             _data = self.getAction(pos=lastPos, offset=offset)["actions"]
             if not _data:
                 return
-            self.data.extend(_data)
             _lastPos = _data[-1]["account_action_seq"] + 1
             if _lastPos < lastPos + offset:  # lastPos是上一次的，_lastPos是拿到数据最后的一条
-                d = {"data": self.data, "lastPos": _lastPos}
-                self.pickleData("{}_alldata".format(self.account_name), d)
+                self.mongoclient.insert_many(_data)
                 return
             else:
-                d = {"data": self.data, "lastPos": _lastPos}
-                self.pickleData("{}_alldata".format(self.account_name), d)
+                self.mongoclient.insert_many(_data)
                 lastPos = _lastPos
 
     def postData(self, url, data):
@@ -52,20 +47,41 @@ class Data:
     def pickleData(self, kname, data):
         self.r.set(kname, json.dumps(data))
 
-    def run(self, dbclean=False, offset=100):
+    def run(self, dbclean=False, offset=100, lastpos=0):
         kname = "{}_alldata".format(self.account_name)
-        if dbclean:
-            self.r.delete(kname)
-        d = self.r.get(kname)
-        if d:
-            data = json.loads(d)
-            self.data = data["data"]
-            self.getdata(lastPos=data["lastPos"], offset=offset)
+        d = self.m[kname]
+        self.mongoclient = d
+        a = (
+            self.mongoclient.find({}, {"account_action_seq": 1})
+            .sort("account_action_seq", pymongo.DESCENDING)
+            .limit(1)
+        )
+        if a.count():
+            lastpos = a[0]["account_action_seq"]
         else:
-            self.data = []
-            self.getdata(offset=offset)
+            lastpos = 0
+
+        self.getdata(offset=offset, lastPos=lastpos)
+
+
+import os, sys, time
+
+
+def main():
+    print("AutoRes is starting")
+    c = Data("gaojin.game")
+    c.run(offset=500)
+
+    executable = sys.executable
+    args = sys.argv[:]
+    print(args)
+    args.insert(0, sys.executable)
+
+    time.sleep(1)
+    print("Respawning")
+    os.execvp(executable, args)
 
 
 if __name__ == "__main__":
-    c = Data("betdicelucky")
-    c.run()
+    #
+    main()
