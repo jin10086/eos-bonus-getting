@@ -20,7 +20,8 @@ def getbalanceBase(account, accounts):
         }
         z = s.get(url + "v0/state/tables/scopes", params=data).json()["tables"]
         for i in z:
-            x[i["scope"]] = float(i["rows"][0]["json"]["balance"].split(" ")[0])
+            if i["rows"]:
+                x[i["scope"]] = float(i["rows"][0]["json"]["balance"].split(" ")[0])
     return x
 
 
