@@ -226,3 +226,4 @@ typings/
 src/int_run.1.py
 src/node/package-lock.json
 src/node/package.json
+src/bosaccount.json
