@@ -6,10 +6,13 @@ import string
 import random
 
 
-def getAccounts():
+def getAccounts(node="eos"):
     "获取所有的账号"
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    accountFile = os.path.join(current_dir, "eosaccount.json")
+    if node == "eos":
+        accountFile = os.path.join(current_dir, "eosaccount.json")
+    elif node == "bos":
+        accountFile = os.path.join(current_dir, "bosaccount.json")
     with open(accountFile) as f:
         account_names = json.loads(f.read())["account_names"]
         return account_names
@@ -90,7 +93,7 @@ def pushaction(contract, action, data, f, node="eos"):
     if node == "eos":
         apiurl = "http://api.eosbeijing.one"
     elif node == "bos":
-        apiurl = "https://api.boscore.io"
+        apiurl = "http://bospush.mytokenpocket.vip"
     cmd = [
         "cleos",
         "-u",
