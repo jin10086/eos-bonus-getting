@@ -2,67 +2,54 @@ import pickle
 
 from log import loggingSetting
 from ut import pushaction
+
 logger = loggingSetting("transferBalance")
 
 
 def transferEos(f, to, n, m=""):
-    return pushaction("eosio.token", "transfer", [f, to, "%.4f EOS" % n, m], f)
+    return tranferBase("eosio.token", "EOS", f, to, n, m)
 
 
-def transferPraEos(f, to, n, m=""):
-    return pushaction("prochaintest", "transfer", [f, to, "%.4f EOS" % n, m], f)
+def transferBos(f, to, n, m=""):
+    return tranferBase("eosio.token", "BOS", f, to, n, m, node="bos")
 
 
 def tranferDice(f, to, n, m=""):
-    return pushaction("betdicetoken", "transfer", [f, to, "%.4f DICE" % n, m], f)
-
-
-def tranferAdd(f, to, n, m=""):
-    return pushaction("eosadddddddd", "transfer", [f, to, "%.4f ADD" % n, m], f)
-
-
-def tranferEsa(f, to, n, m=""):
-    return pushaction("shadowbanker", "transfer", [f, to, "%.4f ESA" % n, m], f)
-
-
-def tranferBocai(f, to, n, m=""):
-    return pushaction("eosbocai1111", "transfer", [f, to, "%.4f BOCAI" % n, m], f)
-
-
-def tranferKar(f, to, n, m=""):
-    return pushaction("therealkarma", "transfer", [f, to, "%.4f KARMA" % n, m], f)
+    return tranferBase("betdicetoken", "DICE", f, to, n, m)
 
 
 def tranferRich(f, to, n, m=""):
-    return pushaction("richrich1111", "transfer", [f, to, "%.4f RICH" % n, m], f)
+    return tranferBase("richrich1111", "RICH", f, to, n, m)
 
 
 def tranferEUSD(f, to, n, m=""):
-    return pushaction("bitpietokens", "transfer", [f, to, "%.8f EUSD" % n, m], f)
+    return tranferBase("bitpietokens", "EUSD", f, to, n, m, 8)
 
 
 def tranferEETH(f, to, n, m=""):
-    return pushaction("bitpietokens", "transfer", [f, to, "%.8f EETH" % n, m], f)
+    return tranferBase("bitpietokens", "EETH", f, to, n, m, 8)
 
 
 def tranferEBTC(f, to, n, m=""):
-    return pushaction("bitpietokens", "transfer", [f, to, "%.8f EBTC" % n, m], f)
+    return tranferBase("bitpietokens", "EBTC", f, to, n, m, 8)
 
 
 def tranferJKS(f, to, n, m=""):
-    return pushaction("eosbocai1111", "transfer", [f, to, "%.4f JACKS" % n, m], f)
+    return tranferBase("eosbocai1111", "JACKS", f, to, n, m)
 
 
 def tranferZks(f, to, n, m=""):
-    return pushaction("zkstokensr4u", "transfer", [f, to, "%.4f ZKS" % n, m], f)
+    return tranferBase("zkstokensr4u", "ZKS", f, to, n, m)
 
 
 def tranferRoy(f, to, n, m=""):
-    return pushaction("eosroyaleroy", "transfer", [f, to, "%.4f ROY" % n, m], f)
+    return tranferBase("eosroyaleroy", "ROY", f, to, n, m)
 
 
-def tranferBase(code, action, symbol, f, to, n, m="", decimal=4):
-    return pushaction(code, action, [f, to, f"%.{decimal}f {symbol}" % n, m], f)
+def tranferBase(contract, symbol, f, to, n, m="", decimal=4, node="eos"):
+    return pushaction(
+        contract, "transfer", [f, to, f"%.{decimal}f {symbol}" % n, m], f, node=node
+    )
 
 
 if __name__ == "__main__":
