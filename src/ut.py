@@ -80,21 +80,21 @@ def delegatebw(f, t, net, cpu):
     return runcleos(cmd)
 
 
-def pushaction(contract, action, data, f):
+def pushaction(contract, action, data, f, node="eos"):
     """
     contract :要玩的合约地址
     action: 玩的方法
     data : 详细信息
     f :账号
     """
+    if node == "eos":
+        apiurl = "http://api.eosbeijing.one"
+    elif node == "bos":
+        apiurl = "https://api.boscore.io"
     cmd = [
-        # "docker",
-        # "exec",
-        # "hungry_cori",
         "cleos",
         "-u",
-        "http://api.eosbeijing.one",
-        # "https://geo.eosasia.one",
+        apiurl,
         "push",
         "action",
         contract,
@@ -111,20 +111,13 @@ def runPool(f, accounts):
         pool.map(f, accounts)
 
 
-def gettable(code, scope, table):
+def gettable(code, scope, table, node="eos"):
+    if node == "eos":
+        apiurl = "http://api.eosbeijing.one"
+    elif node == "bos":
+        apiurl = "https://api.boscore.io"
     return json.loads(
-        runcleos(
-            [
-                "cleos",
-                "-u",
-                "http://api.eosbeijing.one",
-                "get",
-                "table",
-                code,
-                scope,
-                table,
-            ]
-        )
+        runcleos(["cleos", "-u", apiurl, "get", "table", code, scope, table])
     )
 
 
