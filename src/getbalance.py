@@ -4,7 +4,7 @@ from ut import getAccounts
 
 s = requests.Session()
 s.headers = {
-    "Authorization": "Bearer eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTI3NDM5MDYsImp0aSI6Ijc2YWMzZTZiLWFlNmItNDNhOC04MjViLWVmMDkwZmNiODI0OSIsImlhdCI6MTU1MDE1MTkwNiwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJDaVFBNmNieWUreEdNZ3hQWTQ3UlVXSWFMbFNOQ20xN2p2TWh6VkRnL1JoQUlyaHFkN2NTTndBL0NMUnRUT05MKzlmUHc1TkRzUGUxeVBKeU5BanJYYW1nUW45RTVHeHRaWXZTSUdBVi8veXlGRGZDd3RnTUxxSXdFbVlhclRNPSIsInRpZXIiOiJiZXRhLXYxIiwidiI6MX0.wv5lK1wvvBN8ntC7nVW5R5MtMxc0L4zsu5h7HakCIFsuV1fMBSRt22FcIz3N3aclg7TPNbkj1QJXCkR22vyZNA"
+    "Authorization": "Bearer eyJhbGciOiJLTVNFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTYwMTQ1NzIsImp0aSI6IjM3YzBjZTQ0LTQyZmMtNDllNC1hZmI0LTYwNzE3ODJjZmQ3MCIsImlhdCI6MTU1MzQyMjU3MiwiaXNzIjoiZGZ1c2UuaW8iLCJzdWIiOiJDaVFBNmNieWV5UkJvTitWZUVhK0ZPbXpPNUpCQ2FqbzdUNXkzdnJ6bndlWnFycWxJMmNTTndBL0NMUnRaUEFJMTZYSVhkYkV5SFkwZXo5cnhCQkJ3MkU2WmRRTFFWZlFkVTB0VjUzNU1pRk9YMEMwSG8xR0dKQTIxR3pxdUxRPSIsInRpZXIiOiJiZXRhLXYxIiwidiI6MX0.IsDg5nkuKGXjpkY4m1s5NTbgRBLC90MHAyGzgTPCZ1DMPtqpVZ-UISlcQMLTfc0CJ_eJX086Bb0MBZzZaMskyw"
 }
 url = "https://mainnet.eos.dfuse.io/"
 
@@ -18,10 +18,15 @@ def getbalanceBase(account, accounts):
             "table": "accounts",
             "json": "true",
         }
-        z = s.get(url + "v0/state/tables/scopes", params=data).json()["tables"]
-        for i in z:
-            if i["rows"]:
-                x[i["scope"]] = float(i["rows"][0]["json"]["balance"].split(" ")[0])
+        z = s.get(url + "v0/state/tables/scopes", params=data).json()
+        if "tables" in z:
+            data = z["tables"]
+            for i in data:
+                if i["rows"]:
+                    x[i["scope"]] = float(i["rows"][0]["json"]["balance"].split(" ")[0])
+        else:
+            print(z)
+            break
     return x
 
 
