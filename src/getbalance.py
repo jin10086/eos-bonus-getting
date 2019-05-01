@@ -10,6 +10,8 @@ url = "https://mainnet.eos.dfuse.io/"
 
 
 def getbalanceBase(account, accounts):
+    token = gettoken()
+    s.headers = {"Authorization": f"Bearer {token}"}
     x = {}
     for i in range(0, len(accounts), 100):
         data = {
@@ -28,6 +30,12 @@ def getbalanceBase(account, accounts):
             print(z)
             break
     return x
+
+
+def gettoken():
+    url = "https://auth.dfuse.io/v1/auth/issue"
+    z1 = s.post(url, json={"api_key": "server_3c08733bd4d686d127060ffa3c371d4d"})
+    return z1.json()["token"]
 
 
 def getEOSbalance(accounts):
